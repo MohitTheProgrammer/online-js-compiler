@@ -1,0 +1,21 @@
+.editorPage-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  border: 5px solid rgb(148, 174, 174);
+  background-color: rgb(148, 174, 174);
+}
+.sidebar-container {
+  width: 20%;
+  height: 100%;
+}
+.editor-container {
+  width: 80%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

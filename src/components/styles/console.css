@@ -1,0 +1,49 @@
+.console-container {
+  background: #1e1e1e; /* VSCode dark background */
+  color: #d4d4d4; /* Light gray text */
+  font-family: "Consolas", "Courier New", monospace;
+  padding: 12px;
+  border-radius: 6px;
+  height: 34.5%; /* You can adjust */
+  overflow-y: auto; /* Enable scroll */
+  overflow-x: hidden;
+  border: 1px solid #333;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6);
+  scrollbar-width: thin;
+  scrollbar-color: #555 #1e1e1e;
+}
+.error {
+  border: 5px solid #af2b2b;
+  color: #fc2222;
+}
+/* Scrollbar (Chrome) */
+.console-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.console-container::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.console-container::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+
+.console-container::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+.console-container p {
+  margin: 2px 0;
+  padding: 2px 4px;
+  white-space: pre-wrap; /* Show formatting */
+  word-break: break-word;
+}
+
+/* Line number color */
+.console-container p::before {
+  content: counter(line) ". ";
+  counter-increment: line;
+  color: #6a9955; /* green line numbers like VSCode */
+}
