@@ -17,12 +17,10 @@ const Home = () => {
     const ws = socket.current;
     if (!ws) return;
 
-    // Receive updated user list
     const handleRoomUsers = (users) => {
       setUserList(users);
     };
 
-    // Receive room code after joining
     const handleRoomJoined = (data) => {
       if (data.code) {
         setRoomCode(data.code);
