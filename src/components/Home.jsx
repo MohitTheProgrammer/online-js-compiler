@@ -16,23 +16,25 @@ const Home = () => {
   useEffect(() => {
     const ws = socket.current;
     if (!ws) return;
-
+  
+    const onConnect = () => {
+      ws.on("roomUsers", handleRoomUsers);
+      ws.on("roomJoined", handleRoomJoined);
+    };
+  
     const handleRoomUsers = (users) => {
       setUserList(users);
     };
-
+  
     const handleRoomJoined = (data) => {
-      if (data.code) {
-        setRoomCode(data.code);
-        console.log("handleRoomJoined")
-        navigate(`/editor/${data.roomId}`);
-      }
+      if (data.code) setRoomCode(data.code);
+      navigate(`/editor/${data.roomId}`);
     };
-
-    ws.on("roomUsers", handleRoomUsers);
-    ws.on("roomJoined", handleRoomJoined);
-
+  
+    ws.on("connect", onConnect);
+  
     return () => {
+      ws.off("connect", onConnect);
       ws.off("roomUsers", handleRoomUsers);
       ws.off("roomJoined", handleRoomJoined);
     };
