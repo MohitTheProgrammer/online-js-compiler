@@ -24,6 +24,7 @@ const Home = () => {
     const handleRoomJoined = (data) => {
       if (data.code) {
         setRoomCode(data.code);
+        console.log("handleRoomJoined")
         navigate(`/editor/${data.roomId}`);
       }
     };
@@ -56,7 +57,7 @@ const Home = () => {
     if (!localRoomId.trim()) {
       return toast.error("Fill room id!");
     }
-
+    console.log(localRoomId);
     setRoomId(localRoomId); // Save in global context
 
     const ws = socket.current;
