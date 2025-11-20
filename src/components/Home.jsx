@@ -13,55 +13,6 @@ const Home = () => {
   const { setUserList, socket, setRoomId, setRoomCode } = useApp();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const ws = socket.current;
-    if (!ws) return;
-
-    // ✔ FIX — define handlers BEFORE using them
-    const handleRoomUsers = (users) => {
-      setUserList(users);
-    };
-
-    const handleRoomJoined = (data) => {
-      if (data.code) setRoomCode(data.code);
-      navigate(`/editor/${data.roomId}`);
-    };
-
-    const onConnect = () => {
-      ws.on("roomUsers", handleRoomUsers);
-      ws.on("roomJoined", handleRoomJoined);
-    };
-
-    ws.on("connect", onConnect);
-
-    return () => {
-      ws.off("connect", onConnect);
-      ws.off("roomUsers", handleRoomUsers);
-      ws.off("roomJoined", handleRoomJoined);
-    };
-  }, [socket]);
-
-  // --------------------------
-  // Join Room Button Handler
-  // --------------------------
-  const joinRoom = (e) => {
-    e.preventDefault();
-
-    if (!username.trim() || !localRoomId.trim()) {
-      return toast.error("Both fields required!");
-    }
-
-    const ws = socket.current;
-    if (!ws) return toast.error("Socket not initialized!");
-
-    setRoomId(localRoomId);
-
-    ws.emit("joinRoom", {
-      username,
-      roomId: localRoomId,
-    });
-  };
-
   const createRoomId = (e) => {
     e.preventDefault();
     const id = uuidv4();
@@ -69,9 +20,46 @@ const Home = () => {
     toast.success("New Room ID created!");
   };
 
+  const joinRoom = (e) => {
+    e.preventDefault();
+
+    if (!username.trim() && !localRoomId.trim()) {
+      return toast.error("Both fields required!");
+    }
+    if (!username.trim()) {
+      return toast.error("Fill username!");
+    }
+    if (!localRoomId.trim()) {
+      return toast.error("Fill room id!");
+    }
+    console.log(localRoomId);
+    setRoomId(localRoomId); // Save in global context
+
+    const ws = socket.current;
+
+    if (!ws) {
+      toast.error("Socket not initialized");
+      return;
+    }
+
+    ws.on("roomUsers", (users) => {
+      setUserList(users);
+    });
+    ws.on("roomJoined", (data) => {
+      if (data.code) setRoomCode(data.code);
+      navigate(`/editor/${data.roomId}`);
+    });
+
+    ws.emit("joinRoom", {
+      username,
+      roomId: localRoomId,
+    });
+  };
+
   return (
     <>
       <Navbar />
+
       <div className="home-container">
         <form>
           <div className="felieds">
