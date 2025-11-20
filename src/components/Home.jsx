@@ -10,7 +10,7 @@ const Home = () => {
   const [localRoomId, setLocalRoomId] = useState("");
   const [username, setUsername] = useState("");
 
-  const { setUserList, socket, useRoomId, setRoomCode } = useApp();
+  const { setUserList, socket, setRoomId, setRoomCode } = useApp();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Home = () => {
       return toast.error("Fill room id!");
     }
 
-    useRoomId(localRoomId); // Save in global context
+    setRoomId(localRoomId); // Save in global context
 
     const ws = socket.current;
 
