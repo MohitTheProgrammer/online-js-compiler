@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
 
 export const connectWS = () => {
-  return io("http://localhost:4501/");
+  return io(import.meta.env.VITE_SOCKET_URL);
 };

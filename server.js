@@ -3,10 +3,17 @@ import { createServer } from "node:http";
 import path from "node:path";
 import { Server } from "socket.io";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server, { cors: "http://localhost:5173/" });
+const io = new Server(server, {
+  cors: {
+    origin: process.env.CLIENT_URL,
+    methods: ["GET", "POST"]
+  }
+});
 const rooms = new Map();
 
 const __filename = fileURLToPath(import.meta.url);
