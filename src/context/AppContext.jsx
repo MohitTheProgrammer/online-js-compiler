@@ -1,16 +1,28 @@
-import { createContext, useContext, useState, useRef, useEffect } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { connectWS } from "../scripts/ws";
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [userList, setUserList] = useState([]);
-  const [roomId, useRoomId] = useState("");
+  const [roomId, setRoomId] = useState("");
   const [roomCode, setRoomCode] = useState("");
-  const socketRef = useRef();
+
+  const socketRef = useRef(null);
 
   useEffect(() => {
-    socketRef.current = connectWS();
+    const socket = connectWS();
+    socketRef.current = socket;
+
+    socket.on("roomUsers", (users) => {
+      setUserList(users);
+    });
+
+    socket.on("userLeft", (username) => {});
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
@@ -20,7 +32,7 @@ export const AppProvider = ({ children }) => {
         setUserList,
         socket: socketRef,
         roomId,
-        useRoomId,
+        setRoomId,
         roomCode,
         setRoomCode,
       }}

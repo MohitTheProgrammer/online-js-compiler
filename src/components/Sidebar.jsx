@@ -3,8 +3,9 @@ import "./styles/sidebar.css";
 import { useApp } from "../context/AppContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+
 const Sidebar = () => {
-  const { userList, roomId, socket, setUserList } = useApp();
+  const { userList, roomId, socket } = useApp();
   const navigate = useNavigate();
 
   const copyRoomId = async () => {
@@ -17,24 +18,18 @@ const Sidebar = () => {
   };
 
   const leaveRoom = () => {
+    const shouldLeave = window.confirm(
+      "Are you sure you want to leave the room?"
+    );
+    if (!shouldLeave) return;
+
     const ws = socket.current;
-    if (!ws) {
-      return;
-    }
+    if (!ws) return;
 
-    ws.emit("leave-room", {
-      roomId,
-    });
+    ws.emit("leave-room", { roomId });
 
-    ws.on("userLeft", (username) => {
-      toast.error(`${username} left the room`);
-    });
-
-    ws.on("roomUsers", (users) => {
-      setUserList(users);
-    });
-
-    navigate(`/`);
+    ws.disconnect();
+    navigate("/");
   };
 
   return (
@@ -47,6 +42,7 @@ const Sidebar = () => {
             : "no user connected"}
         </div>
       </div>
+
       <div className="btn-container">
         <button className="btn" onClick={copyRoomId}>
           Copy Room Id
