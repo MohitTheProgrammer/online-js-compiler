@@ -10,7 +10,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     methods: ["GET", "POST"],
   },
 });
@@ -18,10 +18,11 @@ const rooms = new Map();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const projectRoot = path.resolve(__dirname, "..");
 
-app.use(express.static("dist"));
+app.use(express.static(path.join(projectRoot, "dist")));
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  res.sendFile(path.join(projectRoot, "dist", "index.html"));
 });
 
 io.on("connection", (socket) => {
@@ -106,6 +107,7 @@ function cleanupUser(socketId, specificRoomId = null) {
   }
 }
 
-server.listen(4501, () => {
-  console.log("server running at http://localhost:4501");
+const port = process.env.PORT || 4501;
+server.listen(port, () => {
+  console.log(`server running at http://localhost:${port}`);
 });

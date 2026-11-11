@@ -1,20 +1,10 @@
-.sidebar-div {
-  width: 100%;
-  height: 100%;
-  padding: 10px 20px;
-  background: #1e1e1e;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.sidebar-heading {
-  margin: 20px 0px;
-  color: aliceblue;
-}
-.user-list {
-  display: flex;
-  justify-content: left;
-  flex-wrap: wrap;
-  color: aliceblue;
-  font-size: large;
-}
+.sidebar-div { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 23px 17px; border: 1px solid #252c38; border-radius: 13px; background: #11151d; }
+.sidebar-heading { margin: 2px 0 8px; color: #edf0f5; font-size: 14px; letter-spacing: -.2px; }
+.user-list { display: flex; flex-direction: column; gap: 5px; color: #737e90; font-size: 12px; }
+.btn-container { display: flex; flex-direction: column; gap: 9px; margin-top: 20px; }
+.sidebar-div .btn { width: 100%; min-height: 39px; margin: 0; font-size: 12px; }
+.sidebar-div .btn:first-child { color: #dce2eb; border-color: #303744; background: #1b212c; }
+.sidebar-div .btn:first-child:hover { background: #252d39; }
+.sidebar-div .btn:last-child { color: #ee9292; border-color: #563438; background: transparent; }
+.sidebar-div .btn:last-child:hover { background: #2c1d22; }
+@media (max-width: 480px) { .sidebar-div { flex-direction: row; align-items: center; gap: 12px; padding: 12px; } .sidebar-heading { display: none; } .user-list { flex: 1; flex-direction: row; flex-wrap: wrap; } .sidebar-div .btn-container { flex-direction: row; width: auto; margin: 0; } .sidebar-div .btn { width: auto; padding: 0 10px; } }

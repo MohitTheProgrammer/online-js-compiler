@@ -1,21 +1,5 @@
-.editorPage-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  border: 5px solid rgb(148, 174, 174);
-  background-color: rgb(148, 174, 174);
-}
-.sidebar-container {
-  width: 20%;
-  height: 100%;
-}
-.editor-container {
-  width: 80%;
-  height: 100%;
-  box-sizing: border-box;
-  padding: 0 10px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+.editorPage-container { width: 100%; min-height: 100vh; height: 100vh; display: flex; padding: 16px; gap: 14px; background: #0b0d12; }
+.sidebar-container { width: 250px; min-width: 220px; height: 100%; }
+.editor-container { flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; gap: 12px; }
+@media (max-width: 680px) { .editorPage-container { padding: 9px; gap: 9px; } .sidebar-container { width: 150px; min-width: 138px; } }
+@media (max-width: 480px) { .editorPage-container { flex-direction: column; height: auto; min-height: 100vh; } .sidebar-container { width: 100%; min-width: 0; height: auto; } .editor-container { min-height: 68vh; } }

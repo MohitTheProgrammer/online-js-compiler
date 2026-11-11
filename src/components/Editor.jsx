@@ -83,9 +83,11 @@ const Editor = ({ sendData }) => {
 
   return (
     <div className="editor-wrapper">
-      <button className="run-btn" onClick={runCode}>
-        ▶ Run
-      </button>
+      <div className="editor-toolbar">
+        <button className="run-btn" onClick={runCode}>
+          ▶ Run
+        </button>
+      </div>
       {/* <CodeEditor
         value={text}
         onValueChange={(code) => handleChange(code)}
@@ -100,16 +102,18 @@ const Editor = ({ sendData }) => {
           border_radius: "6px",
         }}
       /> */}
-      <CodeEditor
-        height={"100%"}
-        width={"100%"}
-        theme="dracula"
-        language="javascript"
-        onMount={onEditorMount}
-        value={text}
-        onChange={(code) => handleChange(code)}
-        className="textarea"
-      />
+      <div className="editor-canvas">
+        <CodeEditor
+          height="100%"
+          width="100%"
+          theme="dracula"
+          language="javascript"
+          onMount={onEditorMount}
+          value={text}
+          onChange={(code) => handleChange(code)}
+          className="textarea"
+        />
+      </div>
     </div>
   );
 };

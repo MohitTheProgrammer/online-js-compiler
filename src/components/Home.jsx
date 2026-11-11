@@ -60,13 +60,24 @@ const Home = () => {
     <>
       <Navbar />
 
-      <div className="home-container">
-        <form>
+      <main className="home-container">
+        <section className="home-copy">
+          <div className="eyebrow"><span className="status-dot" /> REAL-TIME COLLABORATION</div>
+          <h1>Build something<br /><span>together.</span></h1>
+          <p>A shared JavaScript workspace for ideas that are better written together. Create a room, invite your team, and start coding.</p>
+          <div className="home-note"><span className="note-mark">✳</span><span>One room. One editor.<br /><strong>Everyone in sync.</strong></span></div>
+        </section>
+        <form className="room-form">
+          <div className="form-kicker">GET STARTED</div>
+          <h2>Join your workspace</h2>
+          <p className="form-intro">Enter a room ID or create a new one to get going.</p>
           <div className="felieds">
             <label className="inp-label">Room ID</label>
             <input
+              aria-label="Room ID"
               type="text"
               className="input"
+              placeholder="Paste a room ID"
               value={localRoomId}
               onChange={(e) => setLocalRoomId(e.target.value)}
             />
@@ -75,23 +86,25 @@ const Home = () => {
           <div className="felieds">
             <label className="inp-label">Username</label>
             <input
+              aria-label="Username"
               type="text"
               className="input"
+              placeholder="How should we call you?"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
           <div className="btn-container">
-            <button className="btn" onClick={joinRoom}>
+            <button className="btn join-btn" onClick={joinRoom}>
               Join Room
             </button>
-            <button className="btn" onClick={createRoomId}>
-              New Room ID
+            <button className="btn create-btn" onClick={createRoomId}>
+              + Create room
             </button>
           </div>
         </form>
-      </div>
+      </main>
     </>
   );
 };

@@ -1,16 +1,21 @@
-# React + Vite
+# Code Sync
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Code Sync is a real-time collaborative JavaScript editor built with React,
+Vite, Express, and Socket.IO.
 
-Currently, two official plugins are available:
+## Local development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Run `npm run dev` to start the Vite client and Socket.IO server together. Open
+`http://localhost:5173`; Vite proxies Socket.IO traffic to the local server on
+port 4501, including if Vite selects another port. Press Ctrl+C to stop both
+processes.
 
-## React Compiler
+## Deployment
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Run `npm run build` and then `npm start` to serve the production build. The
+server uses the `PORT` value provided by the host, or port 4501 locally.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+When the client and server are on different origins, configure
+`VITE_SOCKET_URL` as the server URL when building the client, and `CLIENT_URL`
+as the client URL for the server's Socket.IO CORS setting. For a same-origin
+deployment, the client uses the current site origin automatically.
